@@ -1,18 +1,14 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block head %}
-<title>Task Master</title>
-{% endblock %}
-
-{% block body %}
-<div class="content">
-    <h1 style="text-align: center">Update Task</h1>
-
-    <div class="form">
-        <form action="/update/{{task.id}}" method="POST">
-            <input type="text" name="content" id="content" value="{{task.content}}">
-            <input type="submit" value="Update">
-        </form>
-    </div>
+{% block content %}
+<div class="update-container">
+    <h1>Update Organization</h1>
+    <form method="POST" action="{{ url_for('update', id=organization.id) }}">
+        <input type="text" name="name" value="{{ organization.name }}" required>
+        <input type="text" name="abbreviation" value="{{ organization.abbreviation }}" required>
+        <input type="text" name="reg_number" value="{{ organization.reg_number }}" required>
+        <button type="submit">Update Organization</button>
+    </form>
+    <a href="{{ url_for('index') }}" class="button">Back to Organizations</a>
 </div>
 {% endblock %}

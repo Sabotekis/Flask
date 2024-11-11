@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing-container">
+    <h1>Welcome to Our Organization Portal</h1>
+    <p>Please register or log in to continue.</p>
+    <div class="auth-buttons">
+        <a href="{{ url_for('register') }}" class="button">Register</a>
+        <a href="{{ url_for('login') }}" class="button">Login</a>
+    </div>
+</div>
+{% endblock %}

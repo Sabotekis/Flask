@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('profile') }}">
+    Name:
+    <input type="text" name="first_name" value="{{ current_user.first_name }}" required>
+    Surname:
+    <input type="text" name="last_name" value="{{ current_user.last_name }}" required>
+    Email:
+    <input type="email" name="email" value="{{ current_user.email }}" required>
+    Phone:
+    <input type="text" name="phone" value="{{ current_user.phone }}" required>
+    <button type="submit">Update Profile</button>
+</form>
+<a href="{{ url_for('index') }}">Back to Organizations</a>
+{% endblock %}

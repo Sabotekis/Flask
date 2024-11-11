@@ -1,39 +1,29 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block head %}
-<title>Task Master</title>
-{% endblock %}
+{% block content %}
+<div class="index-container">
+    <h1>Welcome, {{ current_user.first_name }}!</h1>
+    <a href="{{ url_for('profile') }}" class="button">Profile</a>
+    <a href="{{ url_for('logout') }}" class="button">Logout</a>
 
-{% block body %}
-<div class="content">
-    <h1 style="text-align: center">Task Master</h1>
-    {% if tasks|length < 1 %}
-    <h4 style="text-align: center">No tasks available</h4>
-    {% else %}
-    <table>
-        <tr>
-            <th>Task</th>
-            <th>Added</th>
-            <th>Actions</th>
-        </tr>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.content }}</td>
-                <td>{{ task.date_created.date() }}</td>
-                <td>
-                    <a href="/delete/{{task.id}}">Delete</a>
-                    <br>
-                    <a href="/update/{{task.id}}">Update</a>
-                </td>
-            </tr>
+    <h2>Add Organization</h2>
+    <form method="POST" action="{{ url_for('index') }}">
+        <input type="text" name="name" placeholder="Organization Name" required>
+        <input type="text" name="abbreviation" placeholder="Abbreviation" required>
+        <input type="text" name="reg_number" placeholder="Registration Number" required>
+        <button type="submit">Add Organization</button>
+    </form>
+
+    <h2>Organizations</h2>
+    <ul>
+        {% for organization in organizations %}
+            <li>{{ organization.name }} ({{ organization.abbreviation }}) - {{ organization.reg_number }}
+                {% if organization.user_id == current_user.id %}
+                    <a href="{{ url_for('update', id=organization.id) }}" class="button">Edit</a>
+                    <a href="{{ url_for('delete', id=organization.id) }}" class="button">Delete</a>
+                {% endif %}
+            </li>
         {% endfor %}
-    </table>
-    {% endif %}
-    <div class="form">
-        <form action="/" method="POST">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Add Task">
-        </form>
-    </div>
+    </ul>
 </div>
 {% endblock %}
